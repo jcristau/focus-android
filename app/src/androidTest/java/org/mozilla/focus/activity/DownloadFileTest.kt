@@ -104,9 +104,10 @@ class DownloadFileTest {
             verifySnackBarText("finished")
             mDevice.openNotification()
             notificationTray {
-                expandEraseBrowsingNotification()
+                //verifySystemNotificationExists("Download completed")
+                verifyDownloadNotification("Download completed", downloadFileName)
             }
-            verifyDownloadNotification()
+            //verifyDownloadNotification()
         }
     }
 

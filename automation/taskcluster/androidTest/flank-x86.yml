@@ -41,6 +41,11 @@ gcloud:
     - package org.mozilla.focus.activity.EnhancedTrackingProtectionSettingsTest#removeOneExceptionURLTest
     - package org.mozilla.focus.activity.EnhancedTrackingProtectionSettingsTest#removeAllExceptionURLTest
     - package org.mozilla.focus.activity.EnhancedTrackingProtectionSettingsTest#addURLToTPExceptionsListTest
+    - package org.mozilla.focus.activity.DownloadFileTest#downloadNotificationTest
+    - package org.mozilla.focus.activity.EraseBrowsingDataTest#notificationEraseAndOpenButtonTest
+    - package org.mozilla.focus.activity.EraseBrowsingDataTest#systemBarHomeViewTest
+    - package org.mozilla.focus.activity.SwitchContextTest#notificationOpenButtonTest
+    - package org.mozilla.focus.activity.SwitchContextTest#switchFromSettingsToFocusTest
 #    - package org.mozilla.focus.privacy
 
   device:

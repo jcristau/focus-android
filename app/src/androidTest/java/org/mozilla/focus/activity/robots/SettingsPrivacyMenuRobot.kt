@@ -167,9 +167,10 @@ class SettingsPrivacyMenuRobot {
 
     fun switchSafeBrowsingToggle(): ViewInteraction = safeBrowsingSwitch().perform(click())
 
-    fun verifyExceptionsListDisabled() {
+    fun verifyExceptionsListDisabled(): Boolean {
         exceptionsList()
             .check(matches(Matchers.not(isEnabled())))
+        return true
     }
 
     fun openExceptionsList() {

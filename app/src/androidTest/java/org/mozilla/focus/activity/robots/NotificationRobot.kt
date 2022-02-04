@@ -4,8 +4,6 @@
 
 package org.mozilla.focus.activity.robots
 
-import android.util.Log
-import androidx.test.uiautomator.UiObjectNotFoundException
 import androidx.test.uiautomator.UiScrollable
 import androidx.test.uiautomator.UiSelector
 import org.junit.Assert.assertTrue
@@ -36,20 +34,40 @@ class NotificationRobot {
 
     fun verifySystemNotificationExists(notificationMessage: String) {
         var notificationFound = false
+        val notification = UiSelector().text(notificationMessage)
 
-        do {
-            try {
-                notificationFound = notificationTray.getChildByText(
-                    UiSelector().text(notificationMessage), notificationMessage, true
-                ).waitForExists(waitingTime)
-                assertTrue(notificationFound)
-            } catch (e: UiObjectNotFoundException) {
-                Log.d("TestLog", e.message.toString())
-                // scrolls down the notifications until it reaches the end, then it will close
-                notificationTray.scrollForward()
-                mDevice.waitForIdle()
-            }
-        } while (!notificationFound)
+        while (!notificationFound) {
+            notificationTray.swipeUp(2)
+            notificationFound = mDevice.findObject(notification).waitForExists(3000)
+        }
+        assertTrue(notificationFound)
+
+//        do {
+//            try {
+//                notificationFound = notificationTray.getChildByText(
+//                    UiSelector().text(notificationMessage), notificationMessage, true
+//                ).waitForExists(waitingTime)
+//                assertTrue(notificationFound)
+//            } catch (e: UiObjectNotFoundException) {
+//                Log.d("TestLog", e.message.toString())
+//                // scrolls down the notifications until it reaches the end, then it will close
+//                notificationTray.scrollForward()
+//                mDevice.waitForIdle()
+//            }
+//        } while (!notificationFound)
+    }
+
+    fun verifyDownloadNotification(notificationMessage: String, fileName: String = "") {
+        var notificationFound = false
+        val notification = UiSelector().text(notificationMessage)
+        val downloadedFileName = mDevice.findObject(UiSelector().text(fileName))
+
+        while (!notificationFound) {
+            notificationTray.swipeUp(2)
+            notificationFound = mDevice.findObject(notification).waitForExists(3000)
+        }
+        assertTrue(notificationFound)
+        assertTrue(downloadedFileName.exists())
     }
 
     class Transition {
