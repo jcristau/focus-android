@@ -267,8 +267,10 @@ class EnhancedTrackingProtectionSettingsTest {
 
         searchScreen {
         }.loadPage(genericPage) {
+            verifyPageContent("focus test page")
         }.openSiteSecurityInfoSheet {
         }.clickTrackingProtectionSwitch {
+            progressBar.waitUntilGone(waitingTime)
         }.openMainMenu {
         }.openSettings {
         }.openPrivacySettingsMenu {
@@ -285,6 +287,7 @@ class EnhancedTrackingProtectionSettingsTest {
 
         searchScreen {
         }.loadPage(genericPage) {
+            verifyPageContent("focus test page")
         }.openSiteSecurityInfoSheet {
         }.clickTrackingProtectionSwitch {
             progressBar.waitUntilGone(waitingTime)
@@ -310,15 +313,16 @@ class EnhancedTrackingProtectionSettingsTest {
 
         searchScreen {
         }.loadPage(genericPage) {
+            verifyPageContent("focus test page")
         }.openSiteSecurityInfoSheet {
         }.clickTrackingProtectionSwitch {
+            progressBar.waitUntilGone(waitingTime)
         }.openMainMenu {
         }.openSettings {
         }.openPrivacySettingsMenu {
             openExceptionsList()
             removeAllExceptions()
-            // Failing due to: https://github.com/mozilla-mobile/focus-android/issues/5738
-            // verifyExceptionsListDisabled()
+            verifyExceptionsListDisabled()
             exitToBrowser()
         }
         browserScreen {

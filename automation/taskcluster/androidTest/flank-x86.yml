@@ -38,8 +38,10 @@ gcloud:
   performance-metrics: true
 
   test-targets:
-    - package org.mozilla.focus.activity
-    - package org.mozilla.focus.privacy
+    - package org.mozilla.focus.activity.EnhancedTrackingProtectionSettingsTest#removeOneExceptionURLTest
+    - package org.mozilla.focus.activity.EnhancedTrackingProtectionSettingsTest#removeAllExceptionURLTest
+    - package org.mozilla.focus.activity.EnhancedTrackingProtectionSettingsTest#addURLToTPExceptionsListTest
+#    - package org.mozilla.focus.privacy
 
   device:
    - model: Pixel3
