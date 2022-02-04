@@ -4,17 +4,20 @@
 
 package org.mozilla.focus.activity.robots
 
+import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiScrollable
 import androidx.test.uiautomator.UiSelector
+import androidx.test.uiautomator.Until
 import org.junit.Assert.assertTrue
 import org.mozilla.focus.R
 import org.mozilla.focus.helpers.TestHelper.appName
 import org.mozilla.focus.helpers.TestHelper.getStringResource
 import org.mozilla.focus.helpers.TestHelper.mDevice
 import org.mozilla.focus.helpers.TestHelper.waitingTime
-import org.mozilla.focus.helpers.TestHelper.waitingTimeShort
 
 class NotificationRobot {
+
+    private val NOTIFICATION_SHADE = "com.android.systemui:id/notification_stack_scroller"
 
     fun clearNotifications() {
         if (clearButton.exists()) {
@@ -33,29 +36,17 @@ class NotificationRobot {
         notificationHeader.click()
     }
 
-    fun verifyNotificationExists(notificationMessage: String) {
-        val notificationFound =
-            mDevice.findObject(UiSelector().text(notificationMessage))
-                .waitForExists(waitingTimeShort)
+    fun verifySystemNotificationExists(notificationMessage: String) {
+        val notificationInTray = mDevice.wait(
+            Until.hasObject(
+                By.res(NOTIFICATION_SHADE).hasDescendant(
+                    By.text(notificationMessage)
+                )
+            ),
+            waitingTime
+        )
 
-        while (!notificationFound) {
-            notificationTray.swipeUp(1)
-        }
-        assertTrue(notificationFound)
-    }
-
-    fun verifyDownloadNotification(notificationMessage: String, fileName: String = "") {
-        val notification = UiSelector().text(notificationMessage)
-        var notificationFound = mDevice.findObject(notification).waitForExists(waitingTimeShort)
-        val downloadedFileName = mDevice.findObject(UiSelector().text(fileName))
-
-        while (!notificationFound) {
-            notificationTray.swipeUp(2)
-            notificationFound = mDevice.findObject(notification).waitForExists(waitingTimeShort)
-        }
-
-        assertTrue(notificationFound)
-        assertTrue(downloadedFileName.exists())
+        assertTrue(notificationInTray)
     }
 
     class Transition {

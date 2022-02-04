@@ -88,15 +88,13 @@ class SwitchContextTest {
     fun notificationOpenButtonTest() {
         // Open a webpage
         searchScreen {
-        }.loadPage(webServer.url("").toString()) {
-            progressBar.waitUntilGone(waitingTime)
-        }
+        }.loadPage(webServer.url("").toString()) { }
         // Send app to background
         pressHomeKey()
         // Pull down system bar and select Open
         mDevice.openNotification()
         notificationTray {
-            verifyNotificationExists(getStringResource(R.string.notification_erase_text))
+            verifySystemNotificationExists(getStringResource(R.string.notification_erase_text))
             expandEraseBrowsingNotification()
         }.clickNotificationOpenButton {
             verifyBrowserView()
@@ -121,9 +119,7 @@ class SwitchContextTest {
 
         // Open a webpage
         searchScreen {
-        }.loadPage(webServer.url("").toString()) {
-            progressBar.waitUntilGone(waitingTime)
-        }
+        }.loadPage(webServer.url("").toString()) { }
 
         // Switch out of Focus, open settings app
         pressHomeKey()
@@ -143,7 +139,7 @@ class SwitchContextTest {
         // switch to Focus
         mDevice.openNotification()
         notificationTray {
-            verifyNotificationExists(getStringResource(R.string.notification_erase_text))
+            verifySystemNotificationExists(getStringResource(R.string.notification_erase_text))
             expandEraseBrowsingNotification()
         }.clickNotificationOpenButton {
             verifyBrowserView()
