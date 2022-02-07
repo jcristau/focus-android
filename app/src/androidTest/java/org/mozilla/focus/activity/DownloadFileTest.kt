@@ -22,7 +22,7 @@ import org.mozilla.focus.helpers.TestHelper
 import org.mozilla.focus.helpers.TestHelper.mDevice
 import org.mozilla.focus.helpers.TestHelper.readTestAsset
 import org.mozilla.focus.helpers.TestHelper.verifySnackBarText
-import org.mozilla.focus.helpers.TestHelper.waitingTime
+import org.mozilla.focus.helpers.TestHelper.waitingTimeShort
 import org.mozilla.focus.testAnnotations.SmokeTest
 import java.io.IOException
 
@@ -84,10 +84,10 @@ class DownloadFileTest {
         val downloadPageUrl = webServer.url("").toString()
         val downloadFileName = "download.jpg"
 
-        notificationTray {
-            mDevice.openNotification()
-            clearNotifications()
-        }
+//        notificationTray {
+//            mDevice.openNotification()
+//            clearNotifications()
+//        }
 
         // Load website with service worker
         searchScreen {
@@ -96,7 +96,7 @@ class DownloadFileTest {
         downloadRobot {
             clickDownloadIconAsset()
             // If permission dialog appears, grant it
-            if (TestHelper.permAllowBtn.waitForExists(waitingTime)) {
+            if (TestHelper.permAllowBtn.waitForExists(waitingTimeShort)) {
                 TestHelper.permAllowBtn.click()
             }
             verifyDownloadDialog(downloadFileName)
@@ -107,7 +107,6 @@ class DownloadFileTest {
                 //verifySystemNotificationExists("Download completed")
                 verifyDownloadNotification("Download completed", downloadFileName)
             }
-            //verifyDownloadNotification()
         }
     }
 
@@ -122,7 +121,7 @@ class DownloadFileTest {
         downloadRobot {
             clickDownloadIconAsset()
             // If permission dialog appears, grant it
-            if (TestHelper.permAllowBtn.waitForExists(waitingTime)) {
+            if (TestHelper.permAllowBtn.waitForExists(waitingTimeShort)) {
                 TestHelper.permAllowBtn.click()
             }
             clickCancelDownloadButton()
@@ -143,7 +142,7 @@ class DownloadFileTest {
         downloadRobot {
             clickDownloadIconAsset()
             // If permission dialog appears, grant it
-            if (TestHelper.permAllowBtn.waitForExists(waitingTime)) {
+            if (TestHelper.permAllowBtn.waitForExists(waitingTimeShort)) {
                 TestHelper.permAllowBtn.click()
             }
             verifyDownloadDialog(downloadFileName)

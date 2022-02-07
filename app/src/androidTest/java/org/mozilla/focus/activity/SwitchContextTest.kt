@@ -95,7 +95,7 @@ class SwitchContextTest {
         mDevice.openNotification()
         notificationTray {
             expandEraseBrowsingNotification()
-            verifySystemNotificationExists(getStringResource(R.string.notification_erase_text))
+            verifyNotificationExists(getStringResource(R.string.notification_erase_text))
         }.clickNotificationOpenButton {
             verifyBrowserView()
         }
@@ -139,8 +139,8 @@ class SwitchContextTest {
         // switch to Focus
         mDevice.openNotification()
         notificationTray {
+            verifyNotificationExists(getStringResource(R.string.notification_erase_text))
             expandEraseBrowsingNotification()
-            verifySystemNotificationExists(getStringResource(R.string.notification_erase_text))
         }.clickNotificationOpenButton {
             verifyBrowserView()
         }

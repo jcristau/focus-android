@@ -262,8 +262,6 @@ class EnhancedTrackingProtectionSettingsTest {
     @SmokeTest
     @Test
     fun addURLToTPExceptionsListTest() {
-//        webServer.enqueue(createMockResponseFromAsset("plain_test.html"))
-//        val genericPage = webServer.url("plain_test.html").toString()
         webServer.enqueue(createMockResponseFromAsset("plain_test.html"))
         webServer.enqueue(createMockResponseFromAsset("etpPages/otherTrackers.html"))
         val genericPage = webServer.url("plain_test.html").toString()
@@ -289,8 +287,6 @@ class EnhancedTrackingProtectionSettingsTest {
     @SmokeTest
     @Test
     fun removeOneExceptionURLTest() {
-//        webServer.enqueue(createMockResponseFromAsset("plain_test.html"))
-//        val genericPage = webServer.url("plain_test.html").toString()
         webServer.enqueue(createMockResponseFromAsset("plain_test.html"))
         webServer.enqueue(createMockResponseFromAsset("etpPages/otherTrackers.html"))
         val genericPage = webServer.url("plain_test.html").toString()
@@ -323,24 +319,22 @@ class EnhancedTrackingProtectionSettingsTest {
     @Test
     fun removeAllExceptionURLTest() {
         webServer.enqueue(createMockResponseFromAsset("plain_test.html"))
+        webServer.enqueue(createMockResponseFromAsset("etpPages/otherTrackers.html"))
         val genericPage = webServer.url("plain_test.html").toString()
+        val trackingPage = webServer.url("etpPages/otherTrackers.html").toString()
 
         searchScreen {
         }.loadPage(genericPage) {
             verifyPageContent("focus test page")
+        }.openSearchBar {
+        }.loadPage(trackingPage) {
+            verifyPageContent("Tracker Blocking")
         }.openSiteSecurityInfoSheet {
         }.clickTrackingProtectionSwitch {
             progressBar.waitUntilGone(waitingTime)
         }.openMainMenu {
         }.openSettings {
         }.openPrivacySettingsMenu {
-            if (verifyExceptionsListDisabled()) {
-                exitToBrowser()
-                browserScreen {
-                }.openMainMenu {
-                }.openSettings {
-                }.openPrivacySettingsMenu { }
-            }
             openExceptionsList()
             removeAllExceptions()
             verifyExceptionsListDisabled()
