@@ -84,15 +84,13 @@ class DownloadFileTest {
         val downloadPageUrl = webServer.url("").toString()
         val downloadFileName = "download.jpg"
 
-//        notificationTray {
-//            mDevice.openNotification()
-//            clearNotifications()
-//        }
+        notificationTray {
+            mDevice.openNotification()
+            clearNotifications()
+        }
 
-        // Load website with service worker
         searchScreen {
         }.loadPage(downloadPageUrl) { }
-
         downloadRobot {
             clickDownloadIconAsset()
             // If permission dialog appears, grant it
@@ -104,7 +102,6 @@ class DownloadFileTest {
             verifySnackBarText("finished")
             mDevice.openNotification()
             notificationTray {
-                //verifySystemNotificationExists("Download completed")
                 verifyDownloadNotification("Download completed", downloadFileName)
             }
         }

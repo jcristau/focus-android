@@ -29,6 +29,7 @@ import org.mozilla.focus.helpers.TestHelper.pressHomeKey
 import org.mozilla.focus.helpers.TestHelper.readTestAsset
 import org.mozilla.focus.helpers.TestHelper.restartApp
 import org.mozilla.focus.helpers.TestHelper.verifySnackBarText
+import org.mozilla.focus.helpers.TestHelper.waitingTime
 import org.mozilla.focus.testAnnotations.SmokeTest
 import java.io.IOException
 
@@ -92,17 +93,19 @@ class EraseBrowsingDataTest {
     @SmokeTest
     @Test
     fun notificationEraseAndOpenButtonTest() {
-//        notificationTray {
-//            mDevice.openNotification()
-//            clearNotifications()
-//        }
-        // Open a webpage
+        notificationTray {
+            // clearing notifications pollution
+            mDevice.openNotification()
+            clearNotifications()
+        }
         searchScreen {
-        }.loadPage(webServer.url("").toString()) { }
-        // Send app to background
-        pressHomeKey()
-        // Pull down system bar and select Erase and Open
-        mDevice.openNotification()
+        }.loadPage(webServer.url("").toString()) {
+            progressBar.waitUntilGone(waitingTime)
+            // Send app to background
+            pressHomeKey()
+            // Pull down system bar and select Erase and Open
+            mDevice.openNotification()
+        }
         notificationTray {
             verifyNotificationExists(getStringResource(R.string.notification_erase_text))
             expandEraseBrowsingNotification()
@@ -130,14 +133,15 @@ class EraseBrowsingDataTest {
         val launcherPackage = mDevice.launcherPackageName
 
         notificationTray {
+            // clearing notifications pollution
             mDevice.openNotification()
             clearNotifications()
         }
-
         searchScreen {
-        }.loadPage(webServer.url("").toString()) { }
-
-        // Switch out of Focus, pull down system bar and select delete browsing history
+        }.loadPage(webServer.url("").toString()) {
+            progressBar.waitUntilGone(waitingTime)
+        }
+        // Switch out of Focus, click the notification message
         pressHomeKey()
         mDevice.openNotification()
         notificationTray {
@@ -149,7 +153,6 @@ class EraseBrowsingDataTest {
                 Until.hasObject(By.pkg(launcherPackage).depth(0)),
                 LAUNCH_TIMEOUT.toLong()
             )
-
             // Re-launch the app, verify it's not showing the previous browsing session
             mActivityTestRule.launchActivity(Intent(Intent.ACTION_MAIN))
             verifyEmptySearchBar()
