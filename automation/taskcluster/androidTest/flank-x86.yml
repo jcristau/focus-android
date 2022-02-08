@@ -38,11 +38,7 @@ gcloud:
   performance-metrics: true
 
   test-targets:
-    - package org.mozilla.focus.activity.DownloadFileTest#downloadNotificationTest
-    - package org.mozilla.focus.activity.EraseBrowsingDataTest#notificationEraseAndOpenButtonTest
-    - package org.mozilla.focus.activity.EraseBrowsingDataTest#systemBarHomeViewTest
-    - package org.mozilla.focus.activity.SwitchContextTest#notificationOpenButtonTest
-    - package org.mozilla.focus.activity.SwitchContextTest#switchFromSettingsToFocusTest
+    - package org.mozilla.focus.activity
 #    - package org.mozilla.focus.privacy
 
   device:
